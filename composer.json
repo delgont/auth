@@ -1,0 +1,55 @@
+{
+    "name": "delgont/auth",
+    "description" : "Larevel User - Permissions -Roles",
+    "keywords": [
+        "laravel admin",
+        "laravel user permissions",
+        "laravel user roles", 
+        "laravel dashboard package",
+        "Delgont authenticator",
+        "Laravel who are you"
+    ],
+    "homepage": "https://github.com/delgont/auth",
+    "type" : "project",
+    "license" : "MIT",
+    "authors" : [
+        {
+            "name" : "Stephen Okello Omoding",
+            "email" : "okellostephenomoding@gmail.com",
+            "role" : "Developer"
+        },
+        {
+            "name" : "Stephen Delgont",
+            "email" : "stephen.delgont@outlook.com",
+            "role" : "Project Manager, Developer"
+        }
+    ],
+    "require": {
+        "laravel/framework": "^6.0",
+        "laravel/passport": "^9.3.2",
+        "laravel/helpers": "^1.5.0",
+        "doctrine/dbal": "^2.6"
+    },
+    "prefer-stable": true,
+    "minimum-stability": "dev",
+    "autoload": {
+        "psr-4": {
+            "Delgont\\Auth\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Delgont\\Auth\\Test\\": "tests/"
+        }
+    },
+    "config": {
+        "sort-packages": true
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Delgont\\Auth\\DelgontAuthServiceProvider"
+            ]
+        }
+    }
+}
