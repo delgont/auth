@@ -23,6 +23,9 @@ trait HasPermissions
         });
     }
 
+    /**
+     * A model may have multiple permissions.
+     */
     public function permissions() : BelongsToMany
     {
         return $this->morphToMany('Delgont\Auth\Models\Permission', 'model', 'model_has_permissions', 'model_id', 'permission_id');
@@ -101,40 +104,20 @@ trait HasPermissions
         return $this;
     }
 
+
+     /**
+     * Determine if the model may perform the given permission.
+     *
+     * @param string|int$permission 
+     *
+     * @return bool
+     * @throws PermissionDoesNotExist
+     */
     public function hasPermissionTo($permission) : bool
     {
        return $this->hasPermission($permission);
     }
 
-    public function test($arguments)
-    {
-        return list($role, $guard) = explode(',', $arguments.',');
-    }
-
-    protected function getStoredPermission($permissions)
-    {
-        $permissionClass = app( Permission::class );
-
-        if (is_numeric($permissions)) {
-            return $permissionClass->findById($permissions);
-        }
-
-        if (is_string($permissions)) {
-            return $permissionClass->findByName($permissions);
-        }
-
-        if (is_array($permissions)) {
-            $permissions = array_map(function ($permission) use ($permissionClass) {
-                return is_a($permission, get_class($permissionClass)) ? $permission->name : $permission;
-            }, $permissions);
-
-            return $permissionClass
-                ->whereIn('name', $permissions)
-                ->get();
-        }
-
-        return $permissions;
-    }
 
     /**
      * Remove all current permissions and set the given ones.

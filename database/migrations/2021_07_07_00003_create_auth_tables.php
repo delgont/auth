@@ -17,10 +17,10 @@ class CreateAuthTables extends Migration
             Schema::create('permissions', function (Blueprint $table) {
                 $table->bigIncrements('id');
                 $table->string('name');
-                $table->string('guard_name');
+                $table->string('guard')->nullable();
                 $table->text('description')->nullable();
                 $table->timestamps();
-                $table->unique(['name', 'guard_name']);
+                $table->unique(['name', 'guard']);
             });
         }
 
@@ -28,10 +28,10 @@ class CreateAuthTables extends Migration
             Schema::create('roles', function (Blueprint $table) {
                 $table->bigIncrements('id');
                 $table->string('name');
-                $table->string('guard_name');
+                $table->string('guard')->nullable();
                 $table->text('description')->nullable();
                 $table->timestamps();
-                $table->unique(['name', 'guard_name']);
+                $table->unique(['name', 'guard']);
             });
         }
 

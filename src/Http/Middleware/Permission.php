@@ -18,6 +18,7 @@ class Permission
     public function handle($request, Closure $next, $permission, $guard = null)
     {
         $authenticated = app('auth')->guard($guard);
+        $allow = false;
 
         if ($authenticated->guest()) {
             throw UnauthorizedException::notLoggedIn();
@@ -25,15 +26,18 @@ class Permission
 
         $permissions = is_array($permission)
         ? $permission
-        : explode('|', $permission);
+        : explode(config('permissions.delimiter', '|'), $permission);
 
-    foreach ($permissions as $permission) {
-        if ($authenticated->user()->hasPermissionTo($permission)) {
+        foreach ($permissions as $permission) {
+            $allow = ($authenticated->user()->hasPermissionTo($permission)) ? true : false;
+        }
+
+        if ($allow) {
+            # code...
             return $next($request);
         }
-    }
 
-    throw UnauthorizedException::forPermissions($permissions);
+        throw UnauthorizedException::forPermissions($permissions);
 
         
     }

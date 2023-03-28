@@ -32,9 +32,15 @@ class DelgontAuthServiceProvider extends ServiceProvider
         $this->publishes([
             __DIR__.'/../config/users.php' => config_path('users.php')
         ], 'users-config');
+        $this->publishes([
+            __DIR__.'/../config/permissions.php' => config_path('permissions.php')
+        ], 'permissions-config');
 
         $router = $this->app->make(Router::class);
+        
         $router->aliasMiddleware('permission', Permission::class);
+
+        $this->loadMigrationsFrom(__DIR__.'/../database/migrations');
     }
 
   

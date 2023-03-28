@@ -9,6 +9,8 @@ use Illuminate\Database\Eloquent\Model;
 class Permission extends Model
 {
 
+    protected $fillable = ['name'];
+
    /**
      * Find a permission by its name (and optionally guardName).
      *

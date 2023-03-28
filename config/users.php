@@ -8,12 +8,12 @@ return [
         [
             'name' => 'stephen.okello',
             'email' => 'stephen.okello@gmail.com',
-            'password' => 'wtf@uganda'
+            'password' => '$2y$10$zW6CwMeIlDcep7iU.MkCMO10FxzJyYHq00GnWhs3hA4sCwnjiyYyC' //hello
         ],
         [
             'name' => 'stephen.delgont',
             'email' => 'stephen.hello@gmail.com',
-            'password' => 'wtf@uganda'
+            'password' => '$2y$10$zW6CwMeIlDcep7iU.MkCMO10FxzJyYHq00GnWhs3hA4sCwnjiyYyC' //hello
         ]
     ]
 
