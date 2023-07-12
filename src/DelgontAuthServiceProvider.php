@@ -9,6 +9,9 @@ use Delgont\Auth\Http\Middleware\Permission;
 
 use Delgont\Auth\Concerns\RegistersCommands;
 
+use Delgont\Auth\Http\Middleware\UserTypeMiddleware;
+
+
 class DelgontAuthServiceProvider extends ServiceProvider
 {
     use RegistersCommands;
@@ -19,6 +22,8 @@ class DelgontAuthServiceProvider extends ServiceProvider
      */
     public function register()
     {
+        app('router')->aliasMiddleware('usertype', UserTypeMiddleware::class);
+
         $this->registerCommands();
     }
 
@@ -30,8 +35,9 @@ class DelgontAuthServiceProvider extends ServiceProvider
     public function boot()
     {
         $this->publishes([
-            __DIR__.'/../config/users.php' => config_path('users.php')
-        ], 'users-config');
+            __DIR__.'/../config/multiauth.php' => config_path('multiauth.php')
+        ], 'multiauth-config');
+
         $this->publishes([
             __DIR__.'/../config/permissions.php' => config_path('permissions.php')
         ], 'permissions-config');
@@ -41,6 +47,7 @@ class DelgontAuthServiceProvider extends ServiceProvider
         $router->aliasMiddleware('permission', Permission::class);
 
         $this->loadMigrationsFrom(__DIR__.'/../database/migrations');
+
     }
 
   

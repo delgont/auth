@@ -9,6 +9,7 @@ namespace Delgont\Auth\Concerns;
 use Delgont\Cms\Console\Commands\InstallCommand;
 use Delgont\Auth\Console\GenerateUsers;
 use Delgont\Auth\Console\GeneratePermissions;
+use Delgont\Auth\Console\MakeUserType;
 
 
 trait RegistersCommands
@@ -18,6 +19,7 @@ trait RegistersCommands
         $this->commands([
             GenerateUsers::class,
             GeneratePermissions::class,
+            MakeUserType::class,
         ]);
     }
 }

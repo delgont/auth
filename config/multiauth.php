@@ -2,6 +2,8 @@
 
 return [
 
+    'add_usertype_to_users_model' => false,
+
     'default_password' => 'hello',
 
     'users' => [

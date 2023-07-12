@@ -25,8 +25,9 @@
         }
     ],
     "require": {
-        "laravel/framework": "^6.0",
-        "laravel/passport": "^9.3.2",
+        "php" : "^7.3|^8.0|^8.1",
+        "illuminate/auth": "^7.0|^8.0|^9.0",
+        "illuminate/database": "^7.0|^8.0|^9.0",
         "laravel/helpers": "^1.5.0",
         "doctrine/dbal": "^2.6"
     },
