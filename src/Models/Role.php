@@ -1,37 +1,50 @@
 <?php
 
-namespace Delgont\Cms\Models\Role;
+namespace Delgont\Auth\Models;
 
 
 use Illuminate\Database\Eloquent\Model;
-use Delgont\Cms\Concerns\HasPermissions;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
-class Role extends Model
+
+use Delgont\Auth\Concerns\ModelHasPermissions;
+
+use Delgont\Auth\Models\Permission;
+use Delgont\Auth\Models\RoleGroup;
+
+use Delgont\Auth\Contracts\Role as RoleContact;
+
+
+class Role extends Model implements RoleContact
 {
-  use HasPermissions;
+  use ModelHasPermissions;
 
-  /**
-     * Find a permission by its name (and optionally guardName).
-     *
-     * @param string $name
-     * @param string|null $guardName
-     */
-    public static function scopeFindByName($query, string $name, $guardName = null)
+
+  public function permissions(): BelongsToMany
     {
-        return $query->whereName($name);
-    }
-
-
-    /**
-     * Find a permission by its id (and optionally guardName).
-     *
-     * @param int $id
-     * @param string|null $guardName
-     *
-     */
-    public static function scopeFindById($query, int $id, $guardName = null)
-    {
-        return $query->whereId($id);
+        return $this->belongsToMany(Permission::class, 'role_has_permissions', 'permission_id', 'role_id');
     }
   
+
+    /**
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function group() : BelongsTo
+    {
+        return $this->belongsTo(RoleGroup::class, 'role_group_id');
+    }
+
+    /**
+     * Get permissions of specific group.
+     *
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeOfGroup($query, $group)
+    {
+        return $query->whereHas('group', function($groupQuery) use ($group){
+            $groupQuery->whereName($group);
+        });
+    }
+ 
 }

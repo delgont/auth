@@ -3,13 +3,16 @@
 namespace Delgont\Auth;
 
 use Illuminate\Support\ServiceProvider;
+
 use Illuminate\Routing\Router;
 
-use Delgont\Auth\Http\Middleware\Permission;
 
 use Delgont\Auth\Concerns\RegistersCommands;
 
+use Delgont\Auth\Http\Middleware\PermissionMiddleware;
+use Delgont\Auth\Http\Middleware\RoleMiddleware;
 use Delgont\Auth\Http\Middleware\UserTypeMiddleware;
+use Delgont\Auth\Http\Middleware\PermissionViaSingleRole;
 
 
 class DelgontAuthServiceProvider extends ServiceProvider
@@ -44,7 +47,9 @@ class DelgontAuthServiceProvider extends ServiceProvider
 
         $router = $this->app->make(Router::class);
         
-        $router->aliasMiddleware('permission', Permission::class);
+        $router->aliasMiddleware('permission', PermissionMiddleware::class);
+        $router->aliasMiddleware('role', RoleMiddleware::class);
+        $router->aliasMiddleware('permissionViaSingleRole', PermissionViaSingleRole::class);
 
         $this->loadMigrationsFrom(__DIR__.'/../database/migrations');
 

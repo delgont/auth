@@ -3,10 +3,9 @@
 namespace Delgont\Auth\Http\Middleware;
 
 use Closure;
-
 use Delgont\Auth\Exceptions\UnauthorizedException;
 
-class Permission
+class PermissionMiddleware
 {
     /**
      * Handle an incoming request.
@@ -29,16 +28,19 @@ class Permission
         : explode(config('permissions.delimiter', '|'), $permission);
 
         foreach ($permissions as $permission) {
-            $allow = ($authenticated->user()->hasPermissionTo($permission)) ? true : false;
+            if($authenticated->user()->hasPermissionTo($permission)){
+                $allow = true;
+            }else{
+                $allow = false;
+                throw UnauthorizedException::forPermissions($permissions);
+            }
         }
 
         if ($allow) {
-            # code...
             return $next($request);
         }
 
         throw UnauthorizedException::forPermissions($permissions);
-
         
     }
 }

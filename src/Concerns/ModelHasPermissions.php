@@ -1,16 +1,17 @@
 <?php
 
-namespace Delgont\Auth\Models\Concerns;
+namespace Delgont\Auth\Concerns;
 
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 use Delgont\Auth\Models\Permission;
+
 use Illuminate\Database\Eloquent\Model;
 
 use Delgont\Auth\Exceptions\PermissionDoesNotExist;
 
 
-trait HasPermissions
+trait ModelHasPermissions
 {
 
     public static function bootHasPermissions()
@@ -28,7 +29,7 @@ trait HasPermissions
      */
     public function permissions() : BelongsToMany
     {
-        return $this->morphToMany('Delgont\Auth\Models\Permission', 'model', 'model_has_permissions', 'model_id', 'permission_id');
+        return $this->morphToMany(Permission::class, 'model', 'model_has_permissions', 'model_id', 'permission_id');
     }
 
      /**
@@ -52,14 +53,14 @@ trait HasPermissions
     public function hasPermission($permission) : bool
     {
         if (is_string($permission)) {
-            $permission = Permission::findByName($permission)->first();
+            $permission = Permission::whereName($permission)->first();
         }
 
         if (is_int($permission)) {
-            $permission = Permission::findById($permission)->first();
+            $permission = Permission::whereId($permission)->first();
         }
 
-        if (! $permission instanceof Permission) {
+        if (!$permission instanceof Permission) {
             throw new PermissionDoesNotExist();
         }
 
@@ -79,7 +80,7 @@ trait HasPermissions
             }
 
             if(is_string($permission)){
-                $permissionModel = Permission::findByName($permission)->first();
+                $permissionModel = Permission::whereName($permission)->first();
                 if ($permissionModel) {
                     array_push($array, $permissionModel->getKey());
                 } else {
@@ -88,16 +89,16 @@ trait HasPermissions
                 
             }
 
-
             return $array;
         }, []);
 
         $model = $this->getModel();
         if($model->exists){
-            $this->permissions()->sync($permissions, false);
+            $this->permissions()->sync($permissions, true);
         }
         return $this;
     }
+
 
     public function withdrawPermissionsTo(...$permissions)
     {
@@ -118,6 +119,23 @@ trait HasPermissions
        return $this->hasPermission($permission);
     }
 
+    /**
+     * An alias to hasPermissionTo(), but avoids throwing an exception.
+     *
+     * @param string|int|\Delgont\Auth\Contracts\Permission $permission
+     * @param string|null $guardName
+     *
+     * @return bool
+     */
+    public function checkPermissionTo($permission, $guardName = null): bool
+    {
+        try {
+            return $this->hasPermissionTo($permission, $guardName);
+        } catch (PermissionDoesNotExist $e) {
+            return false;
+        }
+    }
+
 
     /**
      * Remove all current permissions and set the given ones.
@@ -129,8 +147,28 @@ trait HasPermissions
     public function syncPermissions(...$permissions)
     {
         $this->permissions()->detach();
-
         return $this->givePermissionTo($permissions);
     }
 
+     /**
+     * Determine if the model has any of the given permissions.
+     *
+     * @param string|int|array|\Spatie\Permission\Contracts\Permission|\Illuminate\Support\Collection ...$permissions
+     *
+     * @return bool
+     */
+    public function hasAnyPermission(...$permissions): bool
+    {
+        $permissions = collect($permissions)->flatten();
+
+        foreach ($permissions as $permission) {
+            if ($this->checkPermissionTo($permission)) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
 }
+

@@ -2,27 +2,33 @@
 
 namespace Delgont\Auth;
 
-use Delgont\Auth\Models\Permission;
+use Delgont\Auth\Models\Permission as PermissionModel;
 use Delgont\Auth\Models\PermissionGroup;
 
 
-abstract class PermissionRegistrar
+abstract class Permission
 {
-    protected $group = null;
-    protected $permissions = null;
+    protected $group;
+    protected $guard;
 
-
-    protected function getGroup()
+    public function getGroup()
     {
         return $this->group;
     }
 
-    protected function getPermissions()
+    public function setGroup($group)
     {
-        return ($this->permissions) ? $permissions : (new \ReflectionClass($this))->getConstants();
+        $this->group = $group;
+        return $this;
     }
 
-    public function sync()
+    public function getPermissions()
+    {
+        $reflection = new \ReflectionClass($this);
+        return $reflection->getConstants();
+    }
+
+    public function syncPermissions()
     {
         $permissionGroup = ($this->getGroup()) ? PermissionGroup::firstOrCreate([
             'name' => $this->getGroup()
@@ -30,7 +36,7 @@ abstract class PermissionRegistrar
 
         if (count($this->getPermissions()) > 0) {
             foreach ($this->getPermissions() as $key => $permission) {
-                Permission::updateOrCreate([
+                PermissionModel::updateOrCreate([
                     'name' => $permission
                 ], [
                     'name' => $permission,
@@ -40,8 +46,5 @@ abstract class PermissionRegistrar
         }
     }
 
-    public function cache()
-    {
 
-    }
 }

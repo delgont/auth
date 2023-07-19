@@ -6,10 +6,13 @@ namespace Delgont\Auth\Concerns;
  * Commands
  */
 
-use Delgont\Cms\Console\Commands\InstallCommand;
-use Delgont\Auth\Console\GenerateUsers;
-use Delgont\Auth\Console\GeneratePermissions;
-use Delgont\Auth\Console\MakeUserType;
+use Delgont\Auth\Console\Commands\GeneratePermissions;
+use Delgont\Auth\Console\Commands\MakeUserType;
+use Delgont\Auth\Console\Commands\MakeAddRoleIdToModelTable;
+use Delgont\Auth\Console\Commands\SyncPermission;
+
+use Delgont\Auth\Console\Commands\MakePermissionRegistrar;
+use Delgont\Auth\Console\Commands\MakeRoleRegistrar;
 
 
 trait RegistersCommands
@@ -17,9 +20,12 @@ trait RegistersCommands
     private function registerCommands() : void
     {
         $this->commands([
-            GenerateUsers::class,
             GeneratePermissions::class,
             MakeUserType::class,
+            MakeAddRoleIdToModelTable::class,
+            SyncPermission::class,
+            MakePermissionRegistrar::class,
+            MakeRoleRegistrar::class,
         ]);
     }
 }

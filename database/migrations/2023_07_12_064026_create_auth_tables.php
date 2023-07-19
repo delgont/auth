@@ -13,25 +13,45 @@ class CreateAuthTables extends Migration
      */
     public function up()
     {
+        if (!Schema::hasTable('permission_groups')) {
+            Schema::create('permission_groups', function (Blueprint $table) {
+                $table->bigIncrements('id');
+                $table->string('name')->unique();
+                $table->text('description')->nullable();
+                $table->timestamps();
+            });
+        }
+
         if (!Schema::hasTable('permissions')) {
             Schema::create('permissions', function (Blueprint $table) {
                 $table->bigIncrements('id');
-                $table->string('name');
-                $table->string('guard')->nullable();
+                $table->string('name')->unique();
+                $table->text('description')->nullable();
+                $table->unsignedBigInteger('permission_group_id')->nullable();
+                $table->timestamps();
+
+                $table->foreign('permission_group_id')->references('id')->on('permission_groups')->onDelete('set null');
+            });
+        }
+
+        if (!Schema::hasTable('role_groups')) {
+            Schema::create('role_groups', function (Blueprint $table) {
+                $table->bigIncrements('id');
+                $table->string('name')->unique();
                 $table->text('description')->nullable();
                 $table->timestamps();
-                $table->unique(['name', 'guard']);
             });
         }
 
         if (!Schema::hasTable('roles')) {
             Schema::create('roles', function (Blueprint $table) {
                 $table->bigIncrements('id');
-                $table->string('name');
-                $table->string('guard')->nullable();
+                $table->string('name')->unique();
                 $table->text('description')->nullable();
+                $table->unsignedBigInteger('role_group_id')->nullable();
                 $table->timestamps();
-                $table->unique(['name', 'guard']);
+                $table->foreign('role_group_id')->references('id')->on('role_groups')->onDelete('set null');
+
             });
         }
 
