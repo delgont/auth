@@ -2,6 +2,6 @@
 
 return [
 
-    'add_usertype_to_users_model' => false,
+    'add_usertype_to_users_model' => true,
 
 ];

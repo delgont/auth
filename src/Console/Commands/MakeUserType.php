@@ -20,7 +20,7 @@ class MakeUserType extends Command
 
         $this->info('Generating user type model...');
 
-        $modelStub = file_get_contents(__DIR__ . '/../Models/user_type_model.stub');
+        $modelStub = file_get_contents(__DIR__ . '/../../../stubs/user_type_model.stub');
 
         $modelTargetPath = app_path($name . '.php');
         
@@ -34,7 +34,7 @@ class MakeUserType extends Command
 
         $this->info('Generating user type table migration...');
 
-        $migrationStub = file_get_contents(__DIR__ . '/../../database/migrations/user_type_migration.stub');
+        $migrationStub = file_get_contents(__DIR__ . '/../../../database/migrations/user_type_migration.stub');
 
 
         $migrationClassName = Str::plural($name);

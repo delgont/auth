@@ -10,6 +10,7 @@ use Delgont\Auth\Console\Commands\GeneratePermissions;
 use Delgont\Auth\Console\Commands\MakeUserType;
 use Delgont\Auth\Console\Commands\MakeAddRoleIdToModelTable;
 use Delgont\Auth\Console\Commands\SyncPermission;
+use Delgont\Auth\Console\Commands\SyncRole;
 
 use Delgont\Auth\Console\Commands\MakePermissionRegistrar;
 use Delgont\Auth\Console\Commands\MakeRoleRegistrar;
@@ -24,6 +25,7 @@ trait RegistersCommands
             MakeUserType::class,
             MakeAddRoleIdToModelTable::class,
             SyncPermission::class,
+            SyncRole::class,
             MakePermissionRegistrar::class,
             MakeRoleRegistrar::class,
         ]);

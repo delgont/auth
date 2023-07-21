@@ -38,12 +38,11 @@ class DelgontAuthServiceProvider extends ServiceProvider
     public function boot()
     {
         $this->publishes([
-            __DIR__.'/../config/multiauth.php' => config_path('multiauth.php')
-        ], 'multiauth-config');
+            __DIR__.'/../config/multiauth.php' => config_path('multiauth.php'),
+            __DIR__.'/../config/permissions.php' => config_path('permissions.php'),
+            __DIR__.'/../config/roles.php' => config_path('roles.php')
 
-        $this->publishes([
-            __DIR__.'/../config/permissions.php' => config_path('permissions.php')
-        ], 'permissions-config');
+        ], 'multiauth-config');
 
         $router = $this->app->make(Router::class);
         

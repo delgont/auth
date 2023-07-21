@@ -3,24 +3,24 @@
 namespace Delgont\Auth\Console\Commands;
 
 use Illuminate\Console\Command;
-
 use Delgont\Auth\AuthManager;
 
-class SyncPermission extends Command
+
+class SyncRole extends Command
 {
     /**
      * The name and signature of the console command.
      *
      * @var string
      */
-    protected $signature = 'permission:sync';
+    protected $signature = 'role:sync';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Sync permissions';
+    protected $description = 'Sync roles';
 
     /**
      * Create a new command instance.
@@ -39,6 +39,7 @@ class SyncPermission extends Command
      */
     public function handle()
     {
-        $this->info(app(AuthManager::class)->syncPermissions());
+        $this->info(app(AuthManager::class)->syncRoles());
+
     }
 }

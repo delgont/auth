@@ -19,7 +19,14 @@ class UserTypeMiddleware
         if ($user = auth($guard)->user()) {
             $userableTypeNamespace = explode('\\', $user->user_type);
 
-            if (end($userableTypeNamespace) === Str::studly($userType)) {
+            $types = is_array($userType) ? $userType : explode(config('multiauth.delimiter', '|'), $userType);
+
+            $studlyTypes = collect($types)->map(function($item, $index){
+                return Str::studly($item);
+            })->toArray();
+
+            //Check if the user belongs to any of the user type or user types provided
+            if(in_array(end($userableTypeNamespace), $studlyTypes)){
                 return $next($request);
             }
         }
