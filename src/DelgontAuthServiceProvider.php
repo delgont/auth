@@ -14,6 +14,9 @@ use Delgont\Auth\Http\Middleware\RoleMiddleware;
 use Delgont\Auth\Http\Middleware\UserTypeMiddleware;
 use Delgont\Auth\Http\Middleware\PermissionViaSingleRole;
 
+use Illuminate\View\Compilers\BladeCompiler;
+use Illuminate\Support\Facades\Blade;
+
 
 class DelgontAuthServiceProvider extends ServiceProvider
 {
@@ -28,6 +31,8 @@ class DelgontAuthServiceProvider extends ServiceProvider
         app('router')->aliasMiddleware('usertype', UserTypeMiddleware::class);
 
         $this->registerCommands();
+
+        
     }
 
     /**
@@ -51,7 +56,30 @@ class DelgontAuthServiceProvider extends ServiceProvider
         $router->aliasMiddleware('permissionViaSingleRole', PermissionViaSingleRole::class);
 
         $this->loadMigrationsFrom(__DIR__.'/../database/migrations');
+        $this->registerBladeExtensions();
 
+        
+        Blade::directive('role', function ($arguments) {
+            list($role, $guard) = explode(',', $arguments.',');
+            return "<?php if(auth({$guard})->check() && auth({$guard})->user()->hasRole({$role})): ?>";
+        });
+
+        Blade::directive('elserole', function ($arguments) {
+            list($role, $guard) = explode(',', $arguments.',');
+
+            return "<?php elseif(auth({$guard})->check() && auth({$guard})->user()->hasRole({$role})): ?>";
+        });
+
+        Blade::directive('endrole', function () {
+            return '<?php endif; ?>';
+        });
+
+    }
+
+
+    protected function registerBladeExtensions()
+    {
+        
     }
 
   

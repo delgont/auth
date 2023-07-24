@@ -6,8 +6,6 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 use Delgont\Auth\Models\Permission;
 
-use Illuminate\Database\Eloquent\Model;
-
 use Delgont\Auth\Exceptions\PermissionDoesNotExist;
 
 
@@ -35,13 +33,13 @@ trait ModelHasPermissions
      /**
      * Determine if the model has, via roles, the given permission.
      *
-     * @param \Spatie\Permission\Contracts\Permission $permission
+     * @param \Delgont\Auth\Contracts\Permission $permission
      *
      * @return bool
      */
-    protected function hasPermissionViaRole(Permission $permission): bool
+    public function hasPermissionViaRole() : string
     {
-        return $this->hasRole($permission->roles);
+        return 'hello';
     }
 
     /**

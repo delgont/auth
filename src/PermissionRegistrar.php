@@ -17,7 +17,7 @@ abstract class PermissionRegistrar
         return $this->group;
     }
 
-    protected function getPermissions()
+    public function getPermissions()
     {
         return ($this->permissions) ? $permissions : (new \ReflectionClass($this))->getConstants();
     }
@@ -26,7 +26,7 @@ abstract class PermissionRegistrar
     {
         $permissionGroup = ($this->getGroup()) ? PermissionGroup::firstOrCreate([
             'name' => $this->getGroup()
-        ],['name' => $this->getGroup()]) : null;
+        ],['name' => get_class($this), 'registrar' => get_class($this)]) : null;
 
         if (count($this->getPermissions()) > 0) {
             foreach ($this->getPermissions() as $key => $permission) {

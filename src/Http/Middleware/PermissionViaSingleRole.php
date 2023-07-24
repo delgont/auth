@@ -19,7 +19,7 @@ class PermissionViaSingleRole
         $authenticated = app('auth')->guard($guard);
         $allow = false;
 
-        if ($authenticated->guest()) {
+        if ($authenticated->guest()) { 
           throw UnauthorizedException::notLoggedIn();
       }
 

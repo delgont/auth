@@ -22,7 +22,7 @@ class Role extends Model implements RoleContact
 
   public function permissions(): BelongsToMany
     {
-        return $this->belongsToMany(Permission::class, 'role_has_permissions', 'permission_id', 'role_id');
+        return $this->belongsToMany(Permission::class, 'role_has_permissions', 'role_id', 'permission_id');
     }
   
 

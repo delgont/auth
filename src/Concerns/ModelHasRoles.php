@@ -126,7 +126,7 @@ trait HasRoles
      /**
      * Determine if the model has exactly all of the given role(s).
      *
-     * @param  string|array|\Spatie\Permission\Contracts\Role|\Illuminate\Support\Collection  $roles
+     * @param  string|array|\Delgont\Auth\Contracts\Role
      * @param  string|null  $guard
      * @return bool
      */

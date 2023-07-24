@@ -8,7 +8,7 @@ use Delgont\Auth\Models\Permission;
 
 class PermissionGroup extends Model
 {
-    protected $fillable = ['name'];
+    protected $fillable = ['name', 'registrar', 'description'];
 
     /**
      * A permission may belong to specific group.

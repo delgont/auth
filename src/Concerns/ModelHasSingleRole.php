@@ -4,10 +4,9 @@ namespace Delgont\Auth\Concerns;
 
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
-use Delgont\Auth\Models\Role;
-
 use Delgont\Auth\Exceptions\RoleDoesNotExist;
 
+use Delgont\Auth\Models\Role;
 
 
 trait ModelHasSingleRole
@@ -22,10 +21,9 @@ trait ModelHasSingleRole
 
 
     /**
-     * Determine if the model has (one of) the given role(s)
+     * Determine if the model has the given role
      *
      * @param string|int|array
-     * @param string|null $guard
      * @return bool
      */
     public function hasRole($role): bool
@@ -48,6 +46,58 @@ trait ModelHasSingleRole
         }
         return false;
     }
+
+
+    /**
+     * Assign the given role to the model.
+     *
+     * @param array|string|int
+     * @return $this
+     */
+    public function assignRole($role)
+    {
+        $role_id = null;
+
+        if ($role instanceof Role) {
+            $role_id = $role->getKey();
+        }
+
+        if(is_numeric($role)){
+            $role_id = $role;
+        }
+
+        if(is_string($role)){
+            $roleModel = Role::whereName($role)->first();
+            if ($roleModel) {
+                $role_id = $roleModel->getKey();
+            } else {
+                throw RoleDoesNotExist::named($role);
+            }
+            
+        }
+
+        $model = $this->getModel();
+
+        if($model->exists){
+            $this->role_id = $role_id;
+            $this->save();
+        }
+        return $this;
+    }
+
+
+    public function hasPermissionViaSingleRole($permission) : bool
+    {
+        if (!$this->role) {
+            return false;
+        }
+
+        return ($this->role->hasPermissionTo($permission)) ? true : false;
+
+    }
+
+
+    
 
    
 }

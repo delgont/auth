@@ -18,6 +18,7 @@ class CreateAuthTables extends Migration
                 $table->bigIncrements('id');
                 $table->string('name')->unique();
                 $table->text('description')->nullable();
+                $table->string('registrar')->nullable(); // class containing permissions for specific group
                 $table->timestamps();
             });
         }
@@ -120,6 +121,8 @@ class CreateAuthTables extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('auth_permissions');
+        Schema::dropIfExists('permission_groups');
+        Schema::dropIfExists('permissions');
+        Schema::dropIfExists('permission_groups');
     }
 }
