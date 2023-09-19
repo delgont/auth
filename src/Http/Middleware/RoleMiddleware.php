@@ -18,7 +18,6 @@ class RoleMiddleware
         }
 
         $roles = is_array($role) ? $role : explode('|', $role);
-
         
         if (!method_exists($authGuard->user(), 'hasAnyRole')) {
             if (! $authGuard->user()->hasRole($roles)) {

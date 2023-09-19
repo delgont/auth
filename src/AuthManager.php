@@ -18,6 +18,7 @@ class AuthManager
         }
     }
 
+    
     public function syncRoles() : string
     {
         $roles =  config('roles.role_registrars');

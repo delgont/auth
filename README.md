@@ -1,9 +1,8 @@
 
-## Laravel Authenticator
+## Laravel Auth
 
-#### Key features
-- `Multi username authentication - use username or email to login`
-- `Access protection using user defined permissions and roles`
+### Introduction
+Authentication is pretty much easier with laravel via traditional login forms, what about Multi Username authention, access control using roles and permissions.
 
 #### # Requirements
 `Composer` `Laravel Framework 6.0+`
@@ -77,7 +76,49 @@ class LoginController extends Controller
 
 ---
 
-### Access Protection With Permissions
+### Access Protection
+
+##### 1. Access Protection Via Roles
+
+
+`Using role middleware to restrict access`
+
+Use `Delgont\Auth\Concerns\ModelHasRoles` trait on your authenticable model
+
+```php
+<?php
+
+namespace App;
+
+use Laravel\Passport\HasApiTokens;
+use Illuminate\Notifications\Notifiable;
+use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Foundation\Auth\User as Authenticatable;
+
+
+use Delgont\Cms\Notifications\Auth\ResetPassword as ResetPasswordNotification;
+
+use Delgont\Auth\Concerns\ModelHasRoles;
+
+
+
+class User extends Authenticatable
+{
+    /*
+    | Use Delgont\Auth\Concerns\ModelHasRoles trait
+    |
+    */
+    use ModelHasRoles;
+
+
+}
+
+```
+
+```php
+Route::get('/test', 'TestController@test')->middleware('role:hello');
+```
+
 
 `Using permission middleware to restrict access`
 

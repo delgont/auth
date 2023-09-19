@@ -4,13 +4,13 @@ namespace Delgont\Auth\Concerns;
 
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
-use Delgont\Auth\Role;
+use Delgont\Auth\Models\Role;
 
 use Delgont\Auth\Exceptions\RoleDoesNotExist;
 
 
 
-trait HasRoles
+trait ModelHasRoles
 {
 
     public static function bootHasRoles()

@@ -14,7 +14,6 @@ use Delgont\Auth\Models\RoleGroup;
 
 use Delgont\Auth\Contracts\Role as RoleContact;
 
-
 class Role extends Model implements RoleContact
 {
   use ModelHasPermissions;

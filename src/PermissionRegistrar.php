@@ -10,6 +10,7 @@ abstract class PermissionRegistrar
 {
     protected $group = null;
     protected $permissions = null;
+    protected $descriptions = null;
 
 
     protected function getGroup()
@@ -20,6 +21,11 @@ abstract class PermissionRegistrar
     public function getPermissions()
     {
         return ($this->permissions) ? $permissions : (new \ReflectionClass($this))->getConstants();
+    }
+
+    public function getDescriptions()
+    {
+        return ($this->descriptions) ? $this->descriptions : $this->descriptions();
     }
 
     public function sync()
@@ -34,6 +40,7 @@ abstract class PermissionRegistrar
                     'name' => $permission
                 ], [
                     'name' => $permission,
+                    'description' => (is_array($this->getDescriptions()) && count($this->getDescriptions()) > 0) ? (array_key_exists($permission, $this->getDescriptions())) ? $this->getDescriptions()[$permission] : null : null,
                     'permission_group_id' => ($permissionGroup) ? $permissionGroup->id : null
                 ]);
             }
@@ -43,5 +50,10 @@ abstract class PermissionRegistrar
     public function cache()
     {
 
+    }
+
+    protected function descriptions()
+    {
+        return [];
     }
 }
