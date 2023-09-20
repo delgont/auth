@@ -4,7 +4,6 @@ namespace Delgont\Auth;
 
 class AuthManager
 {
-    
     public function syncPermissions() : string
     {
         $permissions =  config('permissions.permission_registrars');
@@ -17,7 +16,6 @@ class AuthManager
             return 'There are no permissions to sync';
         }
     }
-
     
     public function syncRoles() : string
     {
@@ -31,4 +29,5 @@ class AuthManager
             return 'no roles to sync';
         }
     }
+    
 }

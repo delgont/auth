@@ -5,6 +5,8 @@ namespace Delgont\Auth;
 use Delgont\Auth\Models\Permission;
 use Delgont\Auth\Models\PermissionGroup;
 
+use Delgont\Auth\Events\PermissionsSynchronized;
+
 
 abstract class PermissionRegistrar
 {
@@ -28,13 +30,16 @@ abstract class PermissionRegistrar
         return ($this->descriptions) ? $this->descriptions : $this->descriptions();
     }
 
+
     public function sync()
     {
         $permissionGroup = ($this->getGroup()) ? PermissionGroup::firstOrCreate([
             'name' => $this->getGroup()
         ],['name' => get_class($this), 'registrar' => get_class($this)]) : null;
 
-        if (count($this->getPermissions()) > 0) {
+        $permissions = $this->getPermissions();
+
+        if (count($permissions) > 0) {
             foreach ($this->getPermissions() as $key => $permission) {
                 Permission::updateOrCreate([
                     'name' => $permission
@@ -44,6 +49,7 @@ abstract class PermissionRegistrar
                     'permission_group_id' => ($permissionGroup) ? $permissionGroup->id : null
                 ]);
             }
+            event(new PermissionsSynchronized($permissions));
         }
     }
 
