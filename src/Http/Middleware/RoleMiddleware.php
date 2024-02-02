@@ -21,7 +21,7 @@ class RoleMiddleware
         
         if (!method_exists($authGuard->user(), 'hasAnyRole')) {
             if (! $authGuard->user()->hasRole($roles)) {
-                abort(403, 'do  ot have role to access here');
+                abort(403, 'Your do not have the right roles to access this page.');
             }
         }else{
             if (! $authGuard->user()->hasAnyRole($roles)) {

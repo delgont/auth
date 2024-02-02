@@ -9,7 +9,11 @@ Authentication is pretty much easier with laravel via traditional login forms, w
 
 ---
 
-### Multi Authentication
+### Multi Username Authentication
+
+`Login to your aplication using both email and username`
+
+1. Create your custom login controller.
 
 `Login Controller`
 
@@ -63,7 +67,7 @@ class LoginController extends Controller
 }
 ```
 
-`Login Form Username Or Email Input`
+2. Your login blade.
 
 ```php
 <input id="username_email" type="text" class="form-control @error('username_email') is-invalid @enderror" name="username_email" value="{{ old('username_email') }}" required autocomplete="username_email" autofocus>
@@ -78,7 +82,9 @@ class LoginController extends Controller
 
 ### Access Protection
 
-##### 1. Access Protection Via Roles
+##### 1. Access Protection using roles
+
+User can have single role or multiple roles
 
 
 `Using role middleware to restrict access`
@@ -95,12 +101,7 @@ use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
-
-use Delgont\Cms\Notifications\Auth\ResetPassword as ResetPasswordNotification;
-
 use Delgont\Auth\Concerns\ModelHasRoles;
-
-
 
 class User extends Authenticatable
 {
@@ -115,8 +116,16 @@ class User extends Authenticatable
 
 ```
 
+Assigning roles
 ```php
-Route::get('/test', 'TestController@test')->middleware('role:hello');
+# Giving role using role names
+$model->assignRole(['admin','accountant']);
+auth()->user()->assignRole(['admin','accountant']);
+```
+Protecting routes using the role middleware
+```php
+Route::get('/test', 'TestController@test')->middleware('role:admin');
+Route::get('/test', 'TestController@test')->middleware('role:admin|hello');
 ```
 
 

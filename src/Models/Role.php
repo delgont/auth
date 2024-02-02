@@ -12,9 +12,9 @@ use Delgont\Auth\Concerns\ModelHasPermissions;
 use Delgont\Auth\Models\Permission;
 use Delgont\Auth\Models\RoleGroup;
 
-use Delgont\Auth\Contracts\Role as RoleContact;
+use Delgont\Auth\Contracts\Role as RoleContract;
 
-class Role extends Model implements RoleContact
+class Role extends Model implements RoleContract
 {
   use ModelHasPermissions;
 
