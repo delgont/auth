@@ -32,7 +32,7 @@ class MakeRoleRegistrar extends Command
         parent::__construct();
     }
 
-    /**
+    /**P
      * Execute the console command.
      *
      * @return int

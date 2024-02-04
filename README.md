@@ -1,23 +1,33 @@
+<p align="left"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400"></a></p>
 
 ## Laravel Auth
-
-### Introduction
-Authentication is pretty much easier with laravel via traditional login forms, what about Multi Username authention, access control using roles and permissions.
-
-#### # Requirements
 `Composer` `Laravel Framework 6.0+`
+
+## Introduction
+
+Laravel authentication backend that provides the following features.
+- [x] Email or username authentication
+- [x] Access control using roles and permissions.
+
+## Installation
+
+``` composer require delgont/auth ```
+
+``` php artisan vendor:publish  --multiauth-config```
+
+
 
 ---
 
-### Multi Username Authentication
 
-`Login to your aplication using both email and username`
+## Multi Username Authentication
+`username` ` email`
 
-1. Create your custom login controller.
+1. Login Controller.
+> *Create your custom login controller and use* `Delgont\Auth\Concerns\MultiAuthCredentials` . *this will overide the credentials function*
 
-`Login Controller`
 
-```php
+```
 <?php
 namespace App\Http\Controllers\Auth;
 
@@ -67,7 +77,7 @@ class LoginController extends Controller
 }
 ```
 
-2. Your login blade.
+2. Your login View.
 
 ```php
 <input id="username_email" type="text" class="form-control @error('username_email') is-invalid @enderror" name="username_email" value="{{ old('username_email') }}" required autocomplete="username_email" autofocus>
@@ -80,9 +90,9 @@ class LoginController extends Controller
 
 ---
 
-### Access Protection
+## Access Protection
 
-##### 1. Access Protection using roles
+1. Access Protection using roles
 
 User can have single role or multiple roles
 
@@ -116,7 +126,8 @@ class User extends Authenticatable
 
 ```
 
-Assigning roles
+> Assigning roles
+
 ```php
 # Giving role using role names
 $model->assignRole(['admin','accountant']);
@@ -137,7 +148,7 @@ Route::get('/momo', 'Momo@index')->name('momo')->middleware('permission:access_m
 
 `Configure your default permissions in the permissions configuration file`
 
-`
+```
 <?php
 
 return [
@@ -150,27 +161,17 @@ return [
 ];
 `
 
-`Generate or store your default permissions in the DB`
-```php
-php artisan generate:permissions
+
 ```
 
-`User Model` - add `Delgont\Auth\Models\Concerns\HasPermissions` trait
-```php
-<?php
-namespace App;
+## Artisan Commands
 
-use Illuminate\Foundation\Auth\User as Authenticatable;
-use Delgont\Auth\Models\Concerns\HasPermissions;
+> Roles
 
-class User extends Authenticatable
-{
-    use HasPermissions;
-}
+```composer
+php artisan make:roleRegistrar Roles/ExampleRoleRegistrar
 ```
-`Giving permission to user`
 
-```php
-// Adding permissions to a user
-$user->givePermissionTo('manage_users');
+```composer
+php artisan role:sync
 ```

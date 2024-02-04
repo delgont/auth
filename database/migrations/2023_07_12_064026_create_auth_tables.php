@@ -124,5 +124,7 @@ class CreateAuthTables extends Migration
         Schema::dropIfExists('permission_groups');
         Schema::dropIfExists('permissions');
         Schema::dropIfExists('permission_groups');
+        Schema::dropIfExists('model_has_roles');
+        Schema::dropIfExists('role_has_permissions');
     }
 }

@@ -7,6 +7,7 @@ class AuthManager
     public function syncPermissions() : string
     {
         $permissions =  config('permissions.permission_registrars');
+        
         if (is_array($permissions) && count($permissions) > 0) {
             foreach ($permissions as $permission) {
                 app($permission)->sync();
