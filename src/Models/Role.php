@@ -18,6 +18,8 @@ class Role extends Model implements RoleContract
 {
   use ModelHasPermissions;
 
+  protected $fillable = ['name'];
+
 
   public function permissions(): BelongsToMany
     {
