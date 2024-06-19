@@ -6,7 +6,7 @@ use Closure;
 use Illuminate\Support\Str;
 
 class UserTypeMiddleware
-{
+{ 
     /**
      * Handle an incoming request.
      *
@@ -28,6 +28,8 @@ class UserTypeMiddleware
             //Check if the user belongs to any of the user type or user types provided
             if(in_array(end($userableTypeNamespace), $studlyTypes)){
                 return $next($request);
+            }else{
+                //check if the user type actually exits
             }
         }
         abort(403);

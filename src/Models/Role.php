@@ -21,14 +21,15 @@ class Role extends Model implements RoleContract
   protected $fillable = ['name'];
 
 
-  public function permissions(): BelongsToMany
+    public function permissions(): BelongsToMany
     {
         return $this->belongsToMany(Permission::class, 'role_has_permissions', 'role_id', 'permission_id');
     }
   
 
     /**
-     *
+     * Get the group to which the role belongs to
+     * 
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function group() : BelongsTo
@@ -37,14 +38,14 @@ class Role extends Model implements RoleContract
     }
 
     /**
-     * Get permissions of specific group.
+     * Get roles|role of specific group.
      *
      * @return \Illuminate\Database\Eloquent\Builder
      */
     public function scopeOfGroup($query, $group)
     {
         return $query->whereHas('group', function($groupQuery) use ($group){
-            $groupQuery->whereName($group);
+            (is_int($group)) ? $groupQuery->whereId($group) : $groupQuery->whereName($group);
         });
     }
  

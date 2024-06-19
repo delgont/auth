@@ -1,6 +1,6 @@
 <p align="left"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400"></a></p>
 
-## Laravel Auth
+## Laravel Authentication Backend
 `Composer` `Laravel Framework 6.0+`
 
 ## Introduction
@@ -8,14 +8,13 @@
 Laravel authentication backend that provides the following features.
 - [x] Email or username authentication
 - [x] Access control using roles and permissions.
+- [x] Access control using roles and permissions.
 
 ## Installation
 
 ``` composer require delgont/auth ```
 
 ``` php artisan vendor:publish  --multiauth-config```
-
-
 
 ---
 
@@ -90,9 +89,65 @@ class LoginController extends Controller
 
 ---
 
-## Access Protection
+## Access Control
+Regulate access to your laravel systems resources, features and functionality.
 
-1. Access Protection using roles
+### Access control basing on user type
+
+<img src="UserTypes-Access-Control.jpg" width="700" />
+
+1. add `usertype` & `user_id` columns to your authenticatable migration 
+
+```php
+<?php
+..............
+Schema::table('users', function (Blueprint $table) {
+    $table->nullableMorphs('user');
+});
+
+```
+
+2. Add `Delgont\Auth\Concerns\HasUserTypes` Trait to user model.
+
+```php
+<?php
+
+namespace App;
+
+use Laravel\Passport\HasApiTokens;
+use Illuminate\Notifications\Notifiable;
+use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Foundation\Auth\User as Authenticatable;
+
+
+use Delgont\Cms\Notifications\Auth\ResetPassword as ResetPasswordNotification;
+
+use Delgont\Auth\Concerns\HasUserTypes;
+
+
+
+class User extends Authenticatable
+{
+    use Notifiable, HasUserTypes, ModelHasPermissions, ModelHasSingleRole;
+```
+
+3. Your usertype models
+
+```php
+<?php
+
+namespace App;
+
+use Illuminate\Database\Eloquent\Model;
+
+class Customer extends Model
+{
+    public function user()
+    {
+        return $this->morphOne('App\User', 'user');
+    }
+}
+```
 
 User can have single role or multiple roles
 

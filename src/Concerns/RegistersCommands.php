@@ -14,6 +14,7 @@ use Delgont\Auth\Console\Commands\SyncRole;
 
 use Delgont\Auth\Console\Commands\MakePermissionRegistrar;
 use Delgont\Auth\Console\Commands\MakeRoleRegistrar;
+use Delgont\Auth\Console\Commands\RoleCacheCommand;
 
 
 trait RegistersCommands
@@ -28,6 +29,7 @@ trait RegistersCommands
             SyncRole::class,
             MakePermissionRegistrar::class,
             MakeRoleRegistrar::class,
+            RoleCacheCommand::class
         ]);
     }
 }

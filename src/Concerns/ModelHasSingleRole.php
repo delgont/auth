@@ -64,7 +64,7 @@ trait ModelHasSingleRole
 
         if(is_numeric($role)){
             $role_id = $role;
-        }
+         }
 
         if(is_string($role)){
             $roleModel = Role::whereName($role)->first();
