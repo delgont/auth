@@ -110,20 +110,10 @@
                 <div class="col-md-3">
                     <nav class="docs-sidebar" data-spy="affix" data-offset-top="300" data-offset-bottom="200" role="navigation">
                         <ul class="nav">
-                            <li><a href="#line1">Getting Started</a></li>
-                            <li><a href="#line2">How to Install WordPress</a></li>
-                            <li><a href="#line3">How to Install Theme</a></li>
-                            <li><a href="#line4">Necessary Plugins</a></li>
-                            <li><a href="#line5">Creating Blog Pages</a></li>
-                            <li><a href="#line6">Revolution Slider</a></li>
-                            <li><a href="#line7">How to Use Option Panel</a>
+                            <li><a href="#getStarted">Getting Started</a></li>
+                            <li><a href="#authentication">Authentication</a>
                                 <ul class="nav">
-                                    <li><a href="#line7_1">General Options</a></li>
-                                    <li><a href="#line7_2">Style Options</a></li>
-                                    <li><a href="#line7_3">Header Options</a></li>
-                                    <li><a href="#line7_4">Font Options</a></li>
-                                    <li><a href="#line7_5">Slider Options</a></li>
-                                    <li><a href="#line7_6">Page Options</a></li>
+                                    <li><a href="">General Options</a></li>
                                     <li><a href="#line7_7">Import & Export</a></li>
                                 </ul>
                             </li>
@@ -139,41 +129,20 @@
 
                         <div class="row">
                             <div class="col-md-12 left-align">
-                               <h2 class="dark-text">Introduction<hr></h2>
+                               <h2 class="dark-text">Introduction<hr /></h2>
                                 <div class="row">
 
                                     <div class="col-md-12 full">
-                                        <div class="intro1">
-                                            <ul>
-                                                <li><strong>Item Name : </strong>Gather Responsive Event Template</li>
-                                                <li><strong>Item Version : </strong> v 1.0</li>
-                                                <li><strong>Author  : </strong> <a href="http://themeforest.net/user/surjithctly" target="_blank">Surjith S M</a></li>
-                                                <li><strong>Support Forum : </strong> <a href="https://support.surjithctly.in/forums" target="_blank">https://support.surjithctly.in/forums</a></li>
-                                                <li><strong>License : </strong> <a href="#" target="_blank">Un License</a></li>
-                                            </ul>
-                                        </div>
-
-                                        <hr>
+                                        
                                         <div>
-                                            <p>First of all, Thank you so much for purchasing this template and for being my loyal customer.
-                                                <strong>You are awesome!</strong>
-                                                <br> You are entitled to get free lifetime updates to this product + exceptional support from the author directly.
-                                            </p>
+                                            <p>Welcome to <b>Delgont Auth</b>, a powerful Laravel authentication backend package designed to enhance user access control in your Laravel applications. With Delgont Auth, you can easily manage user authentication, offering flexibility in login options and robust access control mechanisms</p>
 
-                                            <p>This documentation is to help you regarding each step of customization. Please go through the documentation carefully to understand how this template is made and how to edit this properly. Basic HTML and CSS knowledge is required to customize this template. You may learn basics from <a href="http://www.w3schools.com/" target="_blank">w3schools</a>, <a href="https://developer.mozilla.org/" target="_blank">Developer.mozilla</a> and <a href="http://learn.shayhowe.com/html-css/building-your-first-web-page/" target="_blank">learn.shayhowe</a>. </p>
-
-                                            <h4>Requirements</h4>
-                                            <p>You will need the following sofwares to customize this template.</p>
+                                            <h4>Key Features</h4>
                                             <ol>
-                                                <li>Code Editing Software (eg: Dreamweaver, Sublime Text or Notepad)</li>
-                                                <li>Web Browser for testing (eg: Google Chrome or Mozilla Firefox)</li>
-                                                <li>FTP Tool to upload files to Server (eg: <a href="https://filezilla-project.org/download.php?type=client" target="_blank">FileZilla</a>) </li>
+                                                <li><b>Flexible Login Options:</b> Users can log in using either their username or email, providing a more versatile authentication process.</li>
+                                                <li><b>Advanced Access Control:</b> Utilize permissions to control user access to various parts of your application, ensuring that only authorized users can perform certain actions.</li>
+                                                <li><b>Seamless Integration:</b> Delgont Auth is designed to integrate smoothly with your existing Laravel application, leveraging the power of Illuminate components.</li>
                                             </ol>
-                                            <div class="intro2 clearfix">
-                                                <p><i class="fa fa-exclamation-triangle"></i> Be careful while editing the template. If not edited properly, the design layout may break completely.
-                                                    <br> No support is provided for faulty customization.
-                                                </p>
-                                            </div>
 
                                         </div>
                                     </div>
@@ -184,7 +153,7 @@
                         </div>
                     </section>
 
-                    <section id="line1" class="section">
+                    <section id="getStarted" class="section">
 
                         <div class="row">
                             <div class="col-md-12 left-align">
@@ -196,103 +165,24 @@
 
                         <div class="row">
                             <div class="col-md-12">
-                                <p>Lorem the It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English.</p>
+                                <p>To begin using Delgont Auth, follow the installation instructions and integrate it into your Laravel application. Our comprehensive documentation will guide you through the setup process, configuration options, and usage examples, ensuring a smooth and efficient implementation</p>
 
-                                <h4>Bootstrap Grid System</h4>
-
-                                <pre class="brush: php; highlight: [2,4]">
-                                    <?php
-
-                                    namespace App;
-                                    
-                                    use Laravel\Passport\HasApiTokens;
-                                    use Illuminate\Notifications\Notifiable;
-                                    use Illuminate\Contracts\Auth\MustVerifyEmail;
-                                    use Illuminate\Foundation\Auth\User as Authenticatable;
-                                    
-                                    
-                                    use Delgont\Cms\Notifications\Auth\ResetPassword as ResetPasswordNotification;
-                                    
-                                    use Delgont\Auth\Concerns\HasUserTypes;
-                                    use Delgont\Auth\Concerns\ModelHasPermissions;
-                                    use Delgont\Auth\Concerns\ModelHasSingleRole;
-                                    use Delgont\Auth\Concerns\ModelHasRoles;
-                                    
-                                    
-                                    
-                                    class User extends Authenticatable
-                                    {
-                                        use Notifiable, HasUserTypes, ModelHasPermissions, ModelHasSingleRole;
-                                    
-                                        /**
-                                         * The attributes that are mass assignable.
-                                         *
-                                         * @var array
-                                         */
-                                        protected $fillable = [
-                                            'name', 'email', 'password',
-                                        ];
-                                    
-                                        /**
-                                         * The attributes that should be hidden for arrays.
-                                         *
-                                         * @var array
-                                         */
-                                        protected $hidden = [
-                                            'password', 'remember_token',
-                                        ];
-                                    
-                                        /**
-                                         * The attributes that should be cast to native types.
-                                         *
-                                         * @var array
-                                         */
-                                        protected $casts = [
-                                            'email_verified_at' => 'datetime',
-                                        ];
-                                    
-                                    
-                                        public function sendPasswordResetNotification($token)
-                                        {
-                                            $this->notify(new ResetPasswordNotification($token));
-                                        }
-                                    
-                                    }
-                                    
-                                </pre>
-
-                                <p>Our you can use the grid system with 2 columns like this;</p>
-
-                                <pre class="brush: html">
-                            <div class="container">
-                                <div class="row">
-                                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                                        YOUR CODES GOES HERE
-                                    </div>
-                                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                                        YOUR CODES GOES HERE
-                                    </div>
+                                <h4>Dependencies</h4>
+                                <div>
+                                    <p>Delgont Auth relies on the following packages to deliver its features:</p>
+                                    <ol>
+                                        <li>PHP: Compatible with versions ^7.3, ^8.0, and ^8.1</li>
+                                        <li>Illuminate/Auth: Compatible with versions ^7.0, ^8.0, and ^9.0</li>
+                                        <li>Illuminate/Database: Compatible with versions ^7.0, ^8.0, and ^9.0</li>
+                                        <li>Laravel/Helpers: Version ^1.5.0</li>
+                                        <li>Doctrine/DBAL: Version ^2.6</li>
+                                    </ol>
                                 </div>
-                            </div>
-                         </pre>
 
-                                <p>Our you can use the grid system with 3 columns like this;</p>
+                                <h4>Installation</h4>
 
-                                <pre class="brush: html">
-                            <div class="container">
-                                <div class="row">
-                                    <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
-                                        YOUR CODES GOES HERE
-                                    </div>
-                                    <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
-                                        YOUR CODES GOES HERE
-                                    </div>
-                                    <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
-                                        YOUR CODES GOES HERE
-                                    </div>
-                                </div>
-                            </div>
-                         </pre>
+                                <p> Run the following command in your terminal: <code>composer require delgont/auth</code></p>
+
                             </div>
                             <!-- end col -->
                         </div>
@@ -301,20 +191,15 @@
                     </section>
                     <!-- end section -->
 
-                    <section id="line2" class="section">
+                    <section id="authentication" class="section">
 
                         <div class="row">
                             <div class="col-md-12 left-align">
-                                <h2 class="dark-text">How to Install WordPress <hr></h2>
+                                <h2 class="dark-text">Authentication <hr></h2>
                             </div>
                             <!-- end col -->
                         </div>
                         <!-- end row -->
-
-                        <div class="intro2 clearfix">
-                            <p><i class="fa fa-wordpress"></i> Lorem the It is a long established fact that a reader will be distracted..
-                                <br> Please read more about WordPress here. <a href="#">WordPress Installation via FTP.</a> </p>
-                        </div>
 
                         <hr>
 
