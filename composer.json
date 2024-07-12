@@ -25,11 +25,11 @@
         }
     ],
     "require": {
-        "php" : "^7.3|^8.0|^8.1",
-        "illuminate/auth": "^7.0|^8.0|^9.0",
-        "illuminate/database": "^7.0|^8.0|^9.0",
-        "laravel/helpers": "^1.5.0",
-        "doctrine/dbal": "^2.6"
+        "php": "^7.2.5 || ^8.0",
+        "illuminate/support": "^7.0 || ^8.0 || ^9.0 || ^10.0 || ^11.0",
+        "illuminate/auth": "^7.0 || ^8.0 || ^9.0 || ^10.0 || ^11.0",
+        "illuminate/database": "^7.0 || ^8.0 || ^9.0 || ^10.0 || ^11.0",
+        "laravel/helpers": "^1.5.0 || 1.6.0 || 1.7.0"
     },
     "prefer-stable": true,
     "minimum-stability": "dev",
